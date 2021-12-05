@@ -1,19 +1,23 @@
 from django.http.response import JsonResponse
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
+from .forms import *
 import json
 
 # Create your views here.
-
-def index(request):
-    tasks = list(Task.objects.values())
-    return JsonResponse(tasks, json_dumps_params={'indent': 2}, safe=False)
-
 @csrf_exempt
-def create(request):
-    jd = json.loads(request.body)
-    Task.objects.create(title=jd['title'], content=jd['content'])
-    return JsonResponse({'message': "Success"}, status=201)
+def index(request):
+    tasks = Task.objects.all()
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')    
+    
+    context = {'tasks': tasks}
+    return render(request, 'index.html', context)
 
 @csrf_exempt
 def delete(request, id):
