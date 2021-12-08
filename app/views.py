@@ -1,11 +1,8 @@
-from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
-import json
 
-# Create your views here.
 @csrf_exempt
 def index(request):
     tasks = Task.objects.all()
@@ -14,9 +11,7 @@ def index(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-            context = {'tasks': tasks} 
             return redirect('/')   
-        context = {'tasks': tasks} 
     
     if request.method == 'GET':
         date = request.GET.get('date')
@@ -24,19 +19,12 @@ def index(request):
         
         if word and date:
             tasks = tasks.filter(created_at=date, title__contains=word)
-            context = {'tasks': tasks}
-            return render(request, 'index.html', context)
-        
+            
         if date:
             tasks = tasks.filter(created_at=date)
-            context = {'tasks': tasks}
-            print(tasks)
-            return render(request, 'index.html', context)
         
         if word:
             tasks = tasks.filter(title__contains=word)
-            context = {'tasks': tasks}
-            return render(request, 'index.html', context)
         
     context = {'tasks': tasks} 
     return render(request, 'index.html', context)
