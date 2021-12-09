@@ -1,9 +1,27 @@
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 
-@csrf_exempt
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+    
+    if request.method == 'POST':
+        form = CustomUserCreationForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+            login(request, user)
+            return redirect('index')
+        else:
+            data['form'] = form
+            
+    return render(request, 'registration/register.html', data)
+
+@login_required
 def index(request):
     tasks = Task.objects.all()
     
@@ -29,12 +47,12 @@ def index(request):
     context = {'tasks': tasks} 
     return render(request, 'index.html', context)
 
-@csrf_exempt
+@login_required
 def delete(request, id):
     Task.objects.filter(id=id).delete()
     return redirect('/')
 
-@csrf_exempt
+@login_required
 def update_status(request, id):
     task_status = (Task.objects.filter(id=id))[0].completed
     task = Task.objects.filter(id=id)

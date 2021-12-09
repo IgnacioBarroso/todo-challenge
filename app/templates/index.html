@@ -11,12 +11,16 @@
     
     <div class="col-md-4 offset-md-4 text-center">
         
-        <a class="text-decoration-none text-reset" href="{% url 'index' %}"><h2 class="card-center card bg-dark p-4 mt-4 mb-4 shadow-lg">Tasker</h2></a>
-        
+        <div class="card-center card bg-dark p-4 mt-4 mb-4 shadow-lg">
+            <a class="text-decoration-none text-reset" href="{% url 'index' %}"><h2 class="pb-3">Tasker</h2></a>
+
+            <a href="{% url 'logout' %}?next=/" class="card-header bg-black rounded text-reset text-decoration-none">Logout</a>
+        </div>
         <div class="card-center card bg-dark p-4 shadow-lg">
-            <h5 class="card-header bg-black">Create a task</h5>
+            <h5 class="card-header bg-black rounded">Create a task</h5>
             
             <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
                 <div class="form-group mt-4">
                     <input name="title" id="title" type="text" class="form-control" placeholder="Title">
                 </div>
@@ -26,10 +30,10 @@
         <br>
 
         <div class="card-center card bg-dark p-4 shadow-lg">
-            <h5 class="card-header bg-black">Search</h5>
+            <h5 class="card-header bg-black rounded">Search</h5>
             
             <form class="form-inline mt-4" method="get">
-
+                {% csrf_token %}
                 <input class="form-control mr-sm-2" name="word" id="word" type="text" placeholder="Word" aria-label="Search">
                 <br>
                 <input placeholder="Date" class="form-control" type="text" onfocus="(this.type='date')" name="date" id="date">
@@ -48,6 +52,7 @@
             <div class=" d-flex justify-content-between">
                 <div>
                     <form action="{% url 'index' %}" method="put">
+                        {% csrf_token %}
                         <h5 class="mb-0 align-self-center">
                             {% if task.completed == True %}
                                 <a class="btn btn-success" href="{% url 'update_status' task.id %}">✓</a>
@@ -60,6 +65,7 @@
                 </div>
                 <div>
                     <form action="{% url 'index' %}" method="delete">
+                        {% csrf_token %}
                         <a class="btn btn-danger" href="{% url 'delete' task.id %}">X</a>
                     </form>
                 </div>
