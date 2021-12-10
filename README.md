@@ -1,35 +1,41 @@
-# Invera ToDo-List Challenge (Python/Django Jr-SSr)
+# ToDoChallenge Invera
 
-El propósito de esta prueba es conocer tu capacidad para crear una pequeña aplicación funcional en un límite de tiempo. A continuación, encontrarás las funciones, los requisitos y los puntos clave que debés tener en cuenta durante el desarrollo.
+Desafio planteado por **Invera**. Desarrollo de una AppWebAPI ToDoList con backend (Django) y frontend (HTML y Bootstrap), con manejo de logs y dockerización del proyecto.
 
-## Qué queremos que hagas:
+## Requerimientos
 
-- El Challenge consiste en crear una aplicación web sencilla que permita a los usuarios crear y mantener una lista de tareas.
-- La entrega del resultado será en un nuevo fork de este repo y deberás hacer una pequeña demo del funcionamiento y desarrollo del proyecto ante un super comité de las más grandes mentes maestras de Invera, o a un par de devs, lo que sea más fácil de conseguir.
-- Podes contactarnos en caso que tengas alguna consulta.
+Es necesario instalar Docker y es recomendable utilizar una terminal Linux (WSL2.0 servira en el caso de SO Windows)
 
-## Objetivos:
+## Instalación
 
-El usuario de la aplicación tiene que ser capaz de:
+Como primer paso debe clonarse el repositorio y moverse a la carpeta donde se halla el mismo
 
-- Crear una tarea
-- Eliminar una tarea
-- Marcar tareas como completadas
-- Poder ver una lista de todas las tareas existentes
-- Filtrar/buscar tareas por fecha de creación y/o por el contenido de la misma
+```
+git clone https://github.com/IgnacioBarroso/todo-challenge.git
+```
 
-## Qué evaluamos:
+El segundo paso es hacer Build de la imagen del contenedor con el siguiente comando. (Podria darse cualquier nombre)
 
-- Desarrollo utilizando Python, Django. No es necesario crear un Front-End, pero sí es necesario tener una API que permita cumplir con los objetivos de arriba.
-- Calidad y arquitectura de código. Facilidad de lectura y mantenimiento del código. Estándares seguidos.
-- [Bonus] Manejo de logs.
-- [Bonus] Creación de tests (unitarias y de integración)
-- [Bonus] Unificar la solución propuesta en una imagen de Docker por repositorio para poder ser ejecutada en cualquier ambiente (si aplica para full stack).
+```
+docker build -t todochallenge .
+```
 
-## Requerimientos de entrega:
+Una vez construida la imagen, se debe correr la misma exponiendo sus puertos y dandole nombre al contenedor
 
-- Hacer un fork del proyecto y pushearlo en github. Puede ser privado.
-- La solución debe correr correctamente.
-- El Readme debe contener todas las instrucciones para poder levantar la aplicación, en caso de ser necesario, y explicar cómo se usa.
-- Disponibilidad para realizar una pequeña demo del proyecto al finalizar el challenge.
-- Tiempo para la entrega: Aproximadamente 7 días.
+```
+docker run -p 8000:8000 --name todolist todochallenge
+```
+
+Finalizado el proceso de instalación, ya puede ser utilizada la App e interactuar con sus funciones accediendo a la misma desde la direccion **(0.0.0.0:8000)** en su navegador.
+
+## Resumen del proyecto
+
+Alli se encontrara con un login donde puede acceder si ya posee un usuario creado, de lo contrario debera registrarse, podra ingresar desde el endpoint /register o desde SignUp debajo en el login. Una vez registrado podra ingresar a la aplicacion como administrador e interactuar con las Task que quiera crear. Tambien tendra la posibilidad de buscar determinados Task filtrandolos por contenido y/o fecha, cambiar su estado de pending a check y borrar si lo necesita. Una vez finalizados los cambios e interaccion con la App, puede hacer logout de la misma y cerrar asi su sesion. La aplicación en cuanto a frontend esta diseñada para ser lo mas intuitiva posible, con un diseño minimalista, centrado y responsive, por lo que, aseguro, no tendra problemas en su uso.
+
+## Herramientas utilizadas
+
+Python - Django - Bootstrap - SQLite3 
+
+### ¡Muchas gracias por chequear el proyecto!
+
+Invito a los revisores a ver mis otros repositorios y consultar conmigo via redes sociales, todo estara en mi README personal. ¡Saludos!
