@@ -21,8 +21,16 @@
                     <br>
                   <form action="" method="post">
                       {% csrf_token %}
-                      {{form}}
+                      <div class="card card-header">
 
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        
+                      </div>
                     <button class="btn btn-outline-light btn-lg px-5 mt-5" type="submit">Register</button>
                     </form>
     

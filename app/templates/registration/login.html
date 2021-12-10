@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,20 +11,29 @@
 </head>
 <body style="background-color: teal;" class="text-white">
     
-    <div class="container py-5 h-100">
+    <div class="container py-4 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="conteiner text-center pb-4">
+                <img src="{% static '/homework.png' %}" class="img-fluid">
+              </div>
             <div class="card bg-dark text-white" style="border-radius: 1rem;">
               <div class="card-body p-4 text-center">
     
                 <div class="pb-5">
     
-                  <h2 class="fw-bold mb-5 card-header bg-black rounded p-3">Login</h2>
+                  <h2 class="fw-bold mb-4 card-header bg-black rounded p-3">Login</h2>
     
                   <form action="" method="post">
                     {% csrf_token %}
-                    {{form}}
-                    <br>
+                    <div class="card card-header">
+                      
+                      {{ form.username.label_tag }}
+                      {{ form.username }} 
+                      {{ form.password.label_tag }}
+                      {{ form.password }}
+                      
+                    </div>
                     <button class="btn btn-outline-light btn-lg px-5 mt-5" type="submit">Login</button>
                     </form>
     
